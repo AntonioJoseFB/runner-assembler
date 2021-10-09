@@ -25,9 +25,9 @@
 
 ;;=======================================================
 ;;PUBLIC ENTITY VARIABLES
-sizeof_e            = 3         ;;How much memory takes one entity
-e_total_size        = 45   	    ;;Total size of the entities
-max_entites         = 15        ;;How many entities can exist
+sizeof_e            = 5         ;;How much memory takes one entity
+e_total_size        = 50   	    ;;Total size of the entities
+max_entites         = 10        ;;How many entities can exist
 
 ;;=======================================================
 ;;TYPES FLAGS
@@ -42,30 +42,22 @@ e_cmps_render   = 0x02
 
 ;;=======================================================
 ;;MACROS
-.macro DEFINE_ENTITY_TEMPLATE _name, _type, _cmp, _pos_x, _pos_y
+.macro DEFINE_ENTITY_TEMPLATE _name, _type, _cmp, _pos_x, _pos_y, _width, _height
 _name:
 	.db _cmp            ; Entity's components
 	.db _pos_x          ; Entity's x position
 	.db _pos_y          ; Entity's y position
-.endm
-
-;;====================================================
-;;Check if entity is valid
-;;Return z = 0 if the entity is no valid
-;;Pre-requirments:
-;;	- a: Contais the type of entity
-.macro IS_ENTITY_VALID _entity_type
-
-	ld a, #e_cmps_invalid
-	cp #_entity_type
-
+	.db _width			; Entity's widdht (bytes)
+	.db _height			; Entity's height (rows)
 .endm
 
 ;;=======================================================
 ;;ENTITY STRUCT REFERENCES USEFUL FOR IX
-e_cmps       = 0 
-e_x         = 1 
-e_y         = 2 
+e_cmps	= 0 
+e_pos_x	= 1 
+e_pos_y	= 2
+e_w	= 3
+e_h	= 4
 
 ;;=======================================================
 ;;Functions

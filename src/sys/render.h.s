@@ -3,3 +3,4 @@
 .globl sys_render_update
 
 .globl _spr_crimson_00
+.globl _g_palette

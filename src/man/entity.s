@@ -8,10 +8,11 @@
 .area _DATA
 .area _CODE
 
-m_entities: 		.ds e_total_size	;;Reserved memory for the entities
-m_next_free_entity: .ds 2				;;Reserved memory for the pointer of the next free entity
-m_num_entities: 	.db 0				;;Current number of entities
-m_function_given_forall: .ds 2          ;; Pointer to the given function for forall functions
+m_entities: 		        .ds e_total_size	;;Reserved memory for the entities
+m_zero_type_at_the_end:     .db #0x00           ;;Trick for stop the loop of entities, positioned
+m_next_free_entity:         .ds 2				;;Reserved memory for the pointer of the next free entity
+m_num_entities: 	        .db 0				;;Current number of entities
+m_function_given_forall:    .ds 2               ;; Pointer to the given function for forall functions
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;;ENTITY_INIT 
@@ -101,6 +102,7 @@ man_entity_forall_matching::
         push bc         ;;we keep the signature
 
         ;;Call the funcion given registered in m_function_given_forall
+		ld hl, #position_after_function_given_matching
 		push hl
 
         ld hl, (#m_function_given_forall)

@@ -12,14 +12,6 @@
 ;;              PUBLIC FUNCTIONS
 ;;=======================================================
 
-;;-------------------------------------------------------
-;;16 color palette in hardware values
-palette:
-    .db HW_BLACK,           HW_BLUE,            HW_BRIGHT_BLUE,     HW_RED
-    .db HW_BRIGHT_RED,      HW_GREEN,           HW_SKY_BLUE,        HW_YELLOW
-    .db HW_WHITE,           HW_ORANGE,          HW_PINK,            HW_BRIGHT_GREEN
-    .db HW_BRIGHT_CYAN,     HW_BRIGHT_YELLOW,   HW_PASTEL_YELLOW,   HW_BRIGHT_WHITE
-
 ;;=======================================================
 ;;              PRIVATE FUNCTIONS
 ;;=======================================================
@@ -35,7 +27,7 @@ sys_render_init::
 
     ;;cpctm_setBoreder_asm HW_WHITE ;;Esto ha dicho que es una macro o algo asi --> Actualizar luego si eso
 
-    ld hl, #palette
+    ld hl, #_g_palette
     ld de, #16
     call cpct_setPalette_asm
 
@@ -51,14 +43,14 @@ sys_render_init::
 sys_render_one_entity::
     ;,Obtain the x, y coordinates to draw the sprite
     ld de, #0xC000
-    ld b, e_y(ix)
-    ld c, e_x(ix)
+    ld b, e_pos_y(ix)
+    ld c, e_pos_x(ix)
     call cpct_getScreenPtr_asm
     ex de, hl   ; DE = Ptr videomem(X,Y)
 
     ld hl, #_spr_crimson_00
-    ld b, #32   ;; 32 lines
-    ld c, #4    ;; 4 bytes
+    ld b, e_h(ix)   ;; 32 lines
+    ld c, e_w(ix)    ;; 4 bytes
     call cpct_drawSprite_asm 
 
     ret
