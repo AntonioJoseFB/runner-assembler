@@ -1,0 +1,2 @@
+.globl sys_input_update
+.globl sys_input_check_keyboard_and_update_player

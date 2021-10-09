@@ -25,8 +25,8 @@
 
 ;;=======================================================
 ;;PUBLIC ENTITY VARIABLES
-sizeof_e            = 9         ;;How much memory takes one entity
-e_total_size        = 90   	    ;;Total size of the entities
+sizeof_e            = 11         ;;How much memory takes one entity
+e_total_size        = 110   	    ;;Total size of the entities
 max_entites         = 10        ;;How many entities can exist
 
 ;;=======================================================
@@ -43,7 +43,7 @@ e_cmps_physics	= 0x04
 
 ;;=======================================================
 ;;MACROS
-.macro DEFINE_ENTITY_TEMPLATE _name, _type, _cmp, _pos_x, _pos_y, _vel_x, _vel_y, _width, _height, _sprite
+.macro DEFINE_ENTITY_TEMPLATE _name, _type, _cmp, _pos_x, _pos_y, _vel_x, _vel_y, _width, _height, _sprite, _prevptr
 _name:
 	.db _cmp            ; Entity's components
 	.db _pos_x          ; Entity's x position
@@ -53,6 +53,7 @@ _name:
 	.db _width			; Entity's widdht (bytes)
 	.db _height			; Entity's height (rows)
 	.dw _sprite			; Pointer to the entity's sprite
+	.dw _prevptr		; Previosu video memory direction
 .endm
 
 ;;=======================================================
@@ -65,6 +66,7 @@ e_vel_y	= 4
 e_w	= 5
 e_h	= 6
 e_sprite = 7	;;2 bytes
+e_prevptr = 9	;;2 bytes
 
 ;;=======================================================
 ;;Functions
@@ -81,3 +83,4 @@ e_sprite = 7	;;2 bytes
 .globl man_entity_set4destruction
 
 .globl m_function_given_forall
+.globl m_entities

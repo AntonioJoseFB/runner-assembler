@@ -25,7 +25,7 @@ sys_render_init::
     ld c, #0
     call cpct_setVideoMode_asm
 
-    ;;cpctm_setBoreder_asm HW_WHITE ;;Esto ha dicho que es una macro o algo asi --> Actualizar luego si eso
+    cpctm_setBorder_asm HW_WHITE ;;Esto ha dicho que es una macro o algo asi --> Actualizar luego si eso
 
     ld hl, #_g_palette
     ld de, #16
@@ -61,13 +61,26 @@ sys_render_level_start::
 ;; Modifies:
 ;;      - AB, BC, DE, HL 
 sys_render_one_entity::
-    ;,Obtain the x, y coordinates to draw the sprite
+    ;;Erase Entity
+    ld e, e_prevptr+0(ix) ;; / DE = e_prevptr
+    ld d, e_prevptr+1(ix) ;; \
+    xor a   ;; A = 0
+    ld b, e_h(ix)
+    ld c, e_w(ix)
+    call cpct_drawSolidBox_asm
+
+    ;;Obtain the x, y coordinates to draw the sprite
     ld de, #0xC000
     ld b, e_pos_y(ix)
     ld c, e_pos_x(ix)
     call cpct_getScreenPtr_asm
     ex de, hl   ; DE = Ptr videomem(X,Y)
+    
+    ;;Dave e_prevptr for erasing on next frame
+    ld e_prevptr+0(ix), e ;; e_prevptr = DE
+    ld e_prevptr+1(ix), d ;; \
 
+    ;;Draw Entity
     ld l, e_sprite+0(ix)
     ld h, e_sprite+1(ix)
     ld b, e_h(ix)   ;; 32 lines

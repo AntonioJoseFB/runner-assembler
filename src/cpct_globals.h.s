@@ -10,3 +10,5 @@
 .globl cpct_memset_asm
 .globl cpct_drawSprite_asm
 .globl cpct_drawSolidBox_asm
+.globl cpct_scanKeyboard_f_asm
+.globl cpct_isKeyPressed_asm

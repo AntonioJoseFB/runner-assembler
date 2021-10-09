@@ -4,20 +4,23 @@
 .include "man/entity.h.s"
 .include "sys/render.h.s"
 .include "sys/physics.h.s"
+.include "sys/input.h.s"
 .include "cpct_globals.h.s"
 
 .area _DATA
 .area _CODE
 
 tmpl_entity_crimson:
-   .db #(e_cmps_alive | e_cmps_render)
+   .db #(e_cmps_alive | e_cmps_render | e_cmps_physics)
    .db 10, 148, 0, 0, 4, 32
    .dw #_spr_crimson_00
+   .dw #0xC000
 
 tmpl_entity_arrow:
    .db #(e_cmps_alive | e_cmps_render | e_cmps_physics)
    .db 76, 148, -2, 0, 4, 3
    .dw #_spr_arrow_0
+   .dw #0xC000
 
 ;;==========================MAIN=================================
 _main::
@@ -41,8 +44,13 @@ _main::
 
 ;;==========MAIN LOOP=============
 loop:
+   cpctm_setBorder_asm HW_RED
    call sys_render_update
+   cpctm_setBorder_asm HW_GREEN
+   call sys_input_update
+   cpctm_setBorder_asm HW_YELLOW
    call sys_physics_update
+   cpctm_setBorder_asm HW_WHITE
 
    call man_entity_update
 

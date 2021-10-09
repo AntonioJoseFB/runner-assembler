@@ -61,6 +61,7 @@ man_entity_set4destruction::
     ret
 
 man_entity_get_from_idx::
+    ;;TODO: este metodo devuleve la entidad que queremos segun el indice que ocupe en el array de ix
     ret
 
 man_entity_update_one_entity::
