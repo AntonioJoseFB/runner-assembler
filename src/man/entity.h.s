@@ -25,8 +25,8 @@
 
 ;;=======================================================
 ;;PUBLIC ENTITY VARIABLES
-sizeof_e            = 5         ;;How much memory takes one entity
-e_total_size        = 50   	    ;;Total size of the entities
+sizeof_e            = 9         ;;How much memory takes one entity
+e_total_size        = 90   	    ;;Total size of the entities
 max_entites         = 10        ;;How many entities can exist
 
 ;;=======================================================
@@ -38,17 +38,21 @@ e_cmps_invalid  = 0x00
 e_cmps_default  = 0xFF
 e_cmps_alive    = 0x01
 e_cmps_render   = 0x02
+e_cmps_physics	= 0x04
 
 
 ;;=======================================================
 ;;MACROS
-.macro DEFINE_ENTITY_TEMPLATE _name, _type, _cmp, _pos_x, _pos_y, _width, _height
+.macro DEFINE_ENTITY_TEMPLATE _name, _type, _cmp, _pos_x, _pos_y, _vel_x, _vel_y, _width, _height, _sprite
 _name:
 	.db _cmp            ; Entity's components
 	.db _pos_x          ; Entity's x position
 	.db _pos_y          ; Entity's y position
+	.db _vel_x          ; Entity's x velocity
+	.db _vel_y          ; Entity's y velocity
 	.db _width			; Entity's widdht (bytes)
 	.db _height			; Entity's height (rows)
+	.dw _sprite			; Pointer to the entity's sprite
 .endm
 
 ;;=======================================================
@@ -56,8 +60,11 @@ _name:
 e_cmps	= 0 
 e_pos_x	= 1 
 e_pos_y	= 2
-e_w	= 3
-e_h	= 4
+e_vel_x	= 3 
+e_vel_y	= 4
+e_w	= 5
+e_h	= 6
+e_sprite = 7	;;2 bytes
 
 ;;=======================================================
 ;;Functions

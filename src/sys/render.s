@@ -34,6 +34,26 @@ sys_render_init::
     ret
 
 ;;=======================================================
+;; RENDER_LEVEL_START
+;;  Initializes the ground of the level
+;; Modifies:
+;;      -
+sys_render_level_start::
+    cpctm_screenPtrSym_asm floor_ptr1, 0xC000, 0, 180
+    cpctm_screenPtrSym_asm floor_ptr2, 0xC000, 40, 180
+
+    ld de, #floor_ptr1
+    ld a, #0xFF
+    ld bc, #0x1428
+    call cpct_drawSolidBox_asm
+
+    ld de, #floor_ptr2
+    ld a, #0xFF
+    ld bc, #0x1428
+    call cpct_drawSolidBox_asm
+    ret
+
+;;=======================================================
 ;; RENDER_ONE_ENTITY
 ;;  Renders one entity
 ;;  Input:
@@ -48,7 +68,8 @@ sys_render_one_entity::
     call cpct_getScreenPtr_asm
     ex de, hl   ; DE = Ptr videomem(X,Y)
 
-    ld hl, #_spr_crimson_00
+    ld l, e_sprite+0(ix)
+    ld h, e_sprite+1(ix)
     ld b, e_h(ix)   ;; 32 lines
     ld c, e_w(ix)    ;; 4 bytes
     call cpct_drawSprite_asm 

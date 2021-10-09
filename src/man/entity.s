@@ -113,7 +113,7 @@ man_entity_forall_matching::
 
         entity_no_matching_signature:
         
-        INCREMENT_REGISTER hl, sizeof_e
+        INCREMENT_REGISTER ix, sizeof_e
 
     jr repeat_man_entity_forall_matching
     entity_no_valid_matching:

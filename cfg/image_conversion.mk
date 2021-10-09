@@ -45,6 +45,7 @@ $(eval $(call IMG2SP, SET_PALETTE_FW  , $(PALETTE)))
 $(eval $(call IMG2SP, SET_FOLDER      , src/assets/sprites))
 $(eval $(call IMG2SP, CONVERT_PALETTE , $(PALETTE), g_palette ))
 $(eval $(call IMG2SP, CONVERT         , assets/sprites1.png , 8, 32, spr_crimson,,))
+$(eval $(call IMG2SP, CONVERT         , assets/sprites2.png , 8, 3, spr_arrow,,))
 
 ##
 ## OLD MACROS (For compatibility)

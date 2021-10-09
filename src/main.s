@@ -9,9 +9,15 @@
 .area _DATA
 .area _CODE
 
-tmpl_entity:
+tmpl_entity_crimson:
    .db #(e_cmps_alive | e_cmps_render)
-   .db 10, 20, 4, 32
+   .db 10, 148, 0, 0, 4, 32
+   .dw #_spr_crimson_00
+
+tmpl_entity_arrow:
+   .db #(e_cmps_alive | e_cmps_render | e_cmps_physics)
+   .db 76, 148, -2, 0, 4, 3
+   .dw #_spr_arrow_0
 
 ;;==========================MAIN=================================
 _main::
@@ -22,9 +28,16 @@ _main::
    call sys_render_init
 
    call man_entity_create
-   ld hl, #tmpl_entity
+   ld hl, #tmpl_entity_crimson
    ld bc, #sizeof_e
    ldir
+
+   call man_entity_create
+   ld hl, #tmpl_entity_arrow
+   ld bc, #sizeof_e
+   ldir
+
+   call sys_render_level_start
 
 ;;==========MAIN LOOP=============
 loop:
