@@ -1,0 +1,1 @@
+;;TODO: hacer una macro que nos cree el struct de las entidades de forma automatica
