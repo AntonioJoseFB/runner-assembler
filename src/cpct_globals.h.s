@@ -8,3 +8,4 @@
 .globl cpct_setVideoMode_asm
 .globl cpct_setPalette_asm
 .globl cpct_memset_asm
+.globl cpct_drawSprite_asm 

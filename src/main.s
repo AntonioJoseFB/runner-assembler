@@ -22,6 +22,9 @@ _main::
    call sys_render_init
 
    call man_entity_create
+   ld hl, #tmpl_entity
+   ld bc, #sizeof_e
+   ldir
 
 ;;==========MAIN LOOP=============
 loop:

@@ -6,6 +6,7 @@
 .include "cpctelera.h.s"
 .include "cpct_globals.h.s"
 .include "man/entity.h.s"
+.include "sys/render.h.s"
 
 ;;=======================================================
 ;;              PUBLIC FUNCTIONS
@@ -55,7 +56,10 @@ sys_render_one_entity::
     call cpct_getScreenPtr_asm
     ex de, hl   ; DE = Ptr videomem(X,Y)
 
-    ld hl, 
+    ld hl, #_spr_crimson_00
+    ld b, #32   ;; 32 lines
+    ld c, #4    ;; 4 bytes
+    call cpct_drawSprite_asm 
 
     ret
 
@@ -66,7 +70,8 @@ sys_render_one_entity::
 ;;  - AF, BC, DE, HL, IX
 render_cmps = (e_cmps_alive | e_cmps_render)
 sys_render_update::
+
     ld hl, #sys_render_one_entity
-    ld a, #render_cmps
+    ld bc, #render_cmps
     call man_entity_forall_matching
     ret

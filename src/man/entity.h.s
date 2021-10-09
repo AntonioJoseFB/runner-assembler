@@ -49,6 +49,18 @@ _name:
 	.db _pos_y          ; Entity's y position
 .endm
 
+;;====================================================
+;;Check if entity is valid
+;;Return z = 0 if the entity is no valid
+;;Pre-requirments:
+;;	- a: Contais the type of entity
+.macro IS_ENTITY_VALID _entity_type
+
+	ld a, #e_cmps_invalid
+	cp #_entity_type
+
+.endm
+
 ;;=======================================================
 ;;ENTITY STRUCT REFERENCES USEFUL FOR IX
 e_cmps       = 0 
@@ -68,3 +80,5 @@ e_y         = 2
 .globl man_entity_forall_matching_pairs
 .globl man_entity_get_from_idx
 .globl man_entity_set4destruction
+
+.globl m_function_given_forall
